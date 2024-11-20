@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenny's Mobile Detailing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Lenny's Mobile Detailing</h1>
+            <nav>
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container container-carousel">
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="./photos/1.jpg" alt="Image 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./photos/2.jpg" alt="Image 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./photos/3.jpg" alt="Image 3">
+                    </div>
+                </div>
+                <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+            </div>
+            <h2>Professional Mobile Car Detailing Services</h2>
+            <p>We bring the shine to you!</p>
+            <a href="#contact" class="cta-button">Book Now</a>
+        </div>
+    </section>
+
+    <!-- Other sections... -->
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Lenny's Mobile Detailing. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        let startX = 0;
+        let endX = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-item');
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+            const offset = -currentSlide * 100;
+            document.querySelector('.carousel-inner').style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function handleTouchStart(event) {
+            startX = event.touches[0].clientX;
+        }
+
+        function handleTouchMove(event) {
+            endX = event.touches[0].clientX;
+        }
+
+        function handleTouchEnd() {
+            if (startX - endX > 50) {
+                nextSlide();
+            } else if (endX - startX > 50) {
+                prevSlide();
+            }
+        }
+
+        // Initialize the first slide
+        showSlide(currentSlide);
+
+        // Add touch event listeners
+        const carousel = document.querySelector('.carousel-inner');
+        carousel.addEventListener('touchstart', handleTouchStart, false);
+        carousel.addEventListener('touchmove', handleTouchMove, false);
+        carousel.addEventListener('touchend', handleTouchEnd, false);
+    </script>
+</body>
+</html>
